@@ -1,0 +1,25 @@
+const dotenv = require('dotenv');
+dotenv.config()
+const lighthouse = require('@lighthouse-web3/sdk');
+const axios = require('axios');
+const uploadData = async (text) => {
+  const apiKey = process.env.LIGHTHOUSE_KEY; // Generate from https://files.lighthouse.storage/ or CLI (lighthouse-web3 api-key --new)
+  
+  const response = await lighthouse.uploadText(
+    text,
+    apiKey
+  );
+  
+  // Display response
+  console.log(response);
+  console.log("Visit at: https://gateway.lighthouse.storage/ipfs/" + response.data.Hash);
+  return "Visit at: https://gateway.lighthouse.storage/ipfs/" + response.data.Hash;
+}
+const getDataFromIpfs = async(url) =>{
+    console.log("Getting data");
+    console.log(url);
+    const data = await axios.get(url);
+    console.log(data.data);
+    return data.data;
+}
+module.exports = {uploadData,getDataFromIpfs};
