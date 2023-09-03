@@ -52,8 +52,9 @@ app.post('/fileUpload', upload.single('pdfFile'), async (req, res) => {
 
     // You can now process the encrypted text or perform any other tasks
     console.log( JSON.stringify(encryptedPDFText) );
-    const hashed = uploadData(JSON.stringify(encryptedPDFText) );
-    res.status(200).send('PDF file uploaded, processed, and encrypted successfully.',hashed);
+    const hashed = await uploadData(JSON.stringify(encryptedPDFText) );
+    console.log(`PDF file uploaded, processed, and encrypted successfully. ${hashed}`);
+    res.status(200).json(hashed);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('An error occurred during processing.');
@@ -71,7 +72,11 @@ app.post('/decrypt',async (req, res) => {
     // Decrypt the encrypted data using AES decryption
     const decryptedText = decryptAES(encryptedData, iv);
 
-    res.status(200).json({ decryptedText });
+    const decryptedBuffer = Buffer.from(decryptedText, 'utf8');
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=decrypted.pdf'); // Optional: Set a filename for the downloaded PDF
+    res.status(200).send(decryptedBuffer);
+    // res.status(200).json({ decryptedText });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('An error occurred during decryption.');

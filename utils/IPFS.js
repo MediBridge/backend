@@ -12,8 +12,8 @@ const uploadData = async (text) => {
   
   // Display response
   console.log(response);
-  console.log("Visit at: https://gateway.lighthouse.storage/ipfs/" + response.data.Hash);
-  return "Visit at: https://gateway.lighthouse.storage/ipfs/" + response.data.Hash;
+  console.log("https://gateway.lighthouse.storage/ipfs/" + response.data.Hash);
+  return "https://gateway.lighthouse.storage/ipfs/" + response.data.Hash;
 }
 const getDataFromIpfs = async(url) =>{
     console.log("Getting data");
