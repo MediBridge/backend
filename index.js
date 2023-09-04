@@ -71,12 +71,12 @@ app.post('/decrypt',async (req, res) => {
 
     // Decrypt the encrypted data using AES decryption
     const decryptedText = decryptAES(encryptedData, iv);
-
-    const decryptedBuffer = Buffer.from(decryptedText, 'utf8');
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=decrypted.pdf'); // Optional: Set a filename for the downloaded PDF
-    res.status(200).send(decryptedBuffer);
-    // res.status(200).json({ decryptedText });
+    // console.log(decryptedText);
+    // const decryptedBuffer = Buffer.from(decryptedText, 'binary');
+    // res.setHeader('Content-Type', 'application/pdf');
+    // res.setHeader('Content-Disposition', 'attachment; filename=decrypted.pdf'); // Optional: Set a filename for the downloaded PDF
+    // res.status(200).send(decryptedBuffer);
+    res.status(200).json({ decryptedText });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('An error occurred during decryption.');
