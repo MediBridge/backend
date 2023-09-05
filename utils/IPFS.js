@@ -17,9 +17,7 @@ const uploadData = async (text) => {
 }
 const getDataFromIpfs = async(url) =>{
     console.log("Getting data");
-    console.log(url);
     const data = await axios.get(url);
-    console.log(data.data);
     return data.data;
 }
 module.exports = {uploadData,getDataFromIpfs};
