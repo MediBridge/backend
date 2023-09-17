@@ -34,7 +34,6 @@ const createConfiguration = async () => {
   const nearConnection = await connect(connectionConfig);
   const account = await nearConnection.account("kinosxz.testnet");
 
-  console.log(await account.getAccountBalance());
 
 
   const contract = new Contract(
@@ -47,12 +46,6 @@ const createConfiguration = async () => {
     }
   );
 
-  const info = await contract.get_patient_workaround(
-    {
-        account_id:"kinosxz.testnet"
-    }
-  )
-  console.log(info);
+  return contract;
 };
 
-createConfiguration();
