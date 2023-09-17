@@ -1,8 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-
 //ROUTING IMPORTS
 const fileRoutes = require('./routes/FileHandling');
+const passwordRoutes = require('./routes/PasswordHandling');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,14 +16,18 @@ app.use(
 );
 app.use(express.json());
 
-// ALL FILE HANDLING ROUTES THAT INCLUDE File Encryption, File Decryption, Plain File Upload to IPFS.
 
 app.get('/api/healthcheck',(req,res)=>{
   res.status(200).json({msg:"Working fine!"});
 })
+
+// ALL FILE HANDLING ROUTES THAT INCLUDE File Encryption, File Decryption, Plain File Upload to IPFS.
+
 app.use('/api/file',fileRoutes);
 
+// PASSWORD SHARING ROUTES
 
+app.use('/api/password/',passwordRoutes);
 
 
 app.listen(port, () => {
