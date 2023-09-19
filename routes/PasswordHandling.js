@@ -45,7 +45,10 @@ router.post("/sharepassword", async (req, res) => {
 router.post("/fetchinformation", async (req, res) => {
   try {
 
-    const {userEmail,accountAddress} = req.body;
+    var {userEmail,accountAddress} = req.body;
+    console.log('"'+accountAddress+'"');
+    userEmail = userEmail.substr(1,userEmail.length-2);
+    console.log(userEmail);
     if(!userEmail || !accountAddress)
     return res.status(404).json({msg:"Missing parameters in request body"});
 
@@ -68,12 +71,13 @@ router.post("/fetchinformation", async (req, res) => {
       //   changeMethods: ["addMessage"], // change methods modify state
       }
     );
+    console.log(accountAddress);
+
     const userINFO = await contract.get_patient_workaround(
       {
-        account_id:accountAddress
+        account_id:accountAddress.trim()
       }
     );
-    console.log(accountAddress);
     const userCollectionRef = db.collection("users").doc(accountAddress);
     const data =  (await userCollectionRef.get()).data();
 

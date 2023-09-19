@@ -50,6 +50,7 @@ router.post("/fileUploadUsingEncryption", upload.single("pdfFile"), async (req, 
 
 
   router.post("/decryptFile", async (req, res) => {
+    console.log("Trying to decrypt");
     try {
       const { url, key } = req.body;
       console.log(req.body);
